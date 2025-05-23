@@ -1,43 +1,49 @@
 import React, { useEffect } from "react";
 import type { AppProps } from "next/app";
+import { useRouter } from "next/router";
+import Head from "next/head";
+
 import "bootstrap/dist/css/bootstrap.min.css";
-import Layout from "../pages/components/Layout";
 import "../styles/globals.css";
 
-import { useRouter } from 'next/router';
+import Layout from "../pages/components/Layout";
+
 function MyApp({ Component, pageProps }: AppProps) {
-  useEffect(() => {
-    //@ts-ignore
-
-    import("bootstrap/dist/js/bootstrap")
-      .then(() => {
-        // Bootstrap JavaScript is loaded and can be used
-      })
-      .catch((error) => {
-        console.error("Error loading Bootstrap:", error);
-      });
-  }, []);
   const router = useRouter();
-  
-  // Check if the current route is '/login'
-  const isLoginPage = router.pathname === '/login';
+  const isLoginPage = router.pathname === "/login";
 
-  // If it's the login page, don't use the default layout
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      // Dynamically import Bootstrap JS and DataTables Bootstrap 5 JS
+       // @ts-ignore
+      import("bootstrap/dist/js/bootstrap.bundle.min.js").catch((err) =>
+        console.error("Bootstrap JS load error:", err)
+      );
+      // @ts-ignore
+      import("datatables.net-bs5").catch((err) =>
+        console.error("DataTables JS load error:", err)
+      );
+    }
+  }, []);
+
   if (isLoginPage) {
-    return (
-      <Component {...pageProps} />
-    );
+    return <Component {...pageProps} />;
   }
 
   return (
     <>
-      
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-       
-      </>
-      );
+      <Head>
+        {/* Load DataTables Bootstrap 5 CSS from CDN */}
+        <link
+          rel="stylesheet"
+          href="https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap5.min.css"
+        />
+      </Head>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </>
+  );
 }
 
-      export default MyApp;
+export default MyApp;
