@@ -1,15 +1,19 @@
-import React from 'react'
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
-const index = () => {
-  return (
-    <>
-      <div className='top-border-main page-main-content '>
+const Index = () => {
+  const router = useRouter();
 
-        
-      </div>
+  useEffect(() => {
+    const token = typeof window !== "undefined" ? localStorage.getItem("admin_token") : null;
+    if (token) {
+      router.replace('/dashboard');
+    } else {
+      router.replace('/login');
+    }
+  }, [router]);
 
-    </>
-  )
-}
+  return null;
+};
 
-export default index
+export default Index;

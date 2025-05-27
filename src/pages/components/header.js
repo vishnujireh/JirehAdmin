@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FaBriefcase } from "react-icons/fa";
-import { Maximize, Bell } from "react-feather";
+import { Maximize } from "react-feather";
 import Image from "next/image";
 import Link from "next/link";
 import useSidebarStore from "../../store/sidebarStore";
@@ -13,7 +13,6 @@ import profile_pic from "../../../public/assets/vishnu.jpg";
 import homelogo from "../../../public/assets/home.svg";
 import getquote from "../../../public/assets/get-quote.svg";
 import vishnuimage from "../../../public/assets/vishnu.jpg";
-import announcement from "../../../public/assets/announcement.png";
 
 export default function Header() {
   const { isOpen, toggleSidebar, setSidebarState } = useSidebarStore();
@@ -72,10 +71,10 @@ export default function Header() {
 
             <ul>
               <li
-                onClick={() => router.push("/")}
-                className={router.pathname === "/" ? "active" : ""} // Dynamically check if the current page is Dashboard
+                onClick={() => router.push("/dashboard")}
+                className={router.pathname === "/dashboard" ? "active" : ""} // Dynamically check if the current page is Dashboard
               >
-                <Link href="/" className="d-flex align-items-center">
+                <Link href="/dashboard" className="d-flex align-items-center">
                   <Image src={homelogo} alt="home" className="img-fluid sidebar-icon" />
                   <span>Dashboard</span>
                 </Link>
@@ -99,26 +98,7 @@ export default function Header() {
                 </Link>
               </li>
             </ul>
-
-            <div className="announcement-card">
-              <div className="text-center">
-                <h5 className="text-white">Announcement</h5>
-                <div className="announcement-bg">
-                  <Image src={announcement} alt="announcement" className="img-fluid" />
-                </div>
-                <p className="sub-text">Make an announcement to our employees</p>
-              </div>
-              <div className="d-flex justify-content-center">
-                <button className="btn btn-block btn-announcement text-white announcement-create-text">
-                  Create Announcement
-                </button>
-              </div>
-              <div className="d-flex justify-content-center">
-                <button className="btn btn-block text-white history-btn announcement-create-text">
-                  Announcement History
-                </button>
-              </div>
-            </div>
+ 
           </aside>
         </div>
 
@@ -161,7 +141,13 @@ export default function Header() {
                     {/* Profile Dropdown Menu */}
                     <div className="profile-dropdown-menu">
                       
-                      <button className="dropdown-item">Logout</button>
+                      <button className="dropdown-item"
+                      onClick={() => {
+  console.log("Logout clicked");
+  localStorage.removeItem("admin_token");
+  router.push("/login");
+}}
+                      >Logout</button>
                     </div>
                   </div>
                 </div>

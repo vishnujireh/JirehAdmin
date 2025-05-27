@@ -7,10 +7,10 @@ const Footer = () => {
       <footer className="footer">
         <div className="container">
           <div className="row align-items-center ">
-            <div className="col-md-12 col-sm-12 mt-3 mt-lg-0 text-center">
+            {/* <div className="col-md-12 col-sm-12 mt-3 mt-lg-0 text-center">
               Copyright © 2023{' '}
               <a href="">Jireh</a>. All rights reserved.
-            </div>
+            </div> */}
           </div>
         </div>
         <BackToTop/>

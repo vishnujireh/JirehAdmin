@@ -1,5 +1,5 @@
-// pages/login.tsx
-import { useState } from 'react';
+ import React, { useState } from "react";
+import { useRouter } from "next/router";
 import Head from 'next/head';
 import { FormEvent } from 'react';
 import Image from 'next/image';
@@ -8,25 +8,33 @@ import { FaRegEyeSlash } from "react-icons/fa6";
 import { MdOutlineMailOutline } from "react-icons/md";
 
 import styles from '../styles/login.module.css'
-const LoginPage = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+const Login = () => {
+  const [email, setUser] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const router = useRouter();
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email || !password) {
-      setError('Both fields are required.');
-      return;
+    setError("");
+    try {
+      const response = await fetch("/api/admin/login", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ email, password }), // Make sure these match your API!
+});
+      const data = await response.json();
+      if (response.ok && data.token) {
+        localStorage.setItem("admin_token", data.token);
+        router.push("/dashboard");
+      } else {
+        setError(data.message || "Login failed");
+      }
+    } catch {
+      setError("Network error");
     }
-
-    // You can send the data to an API or backend for authentication here
-    console.log('Logging in with:', { email, password });
-
-    setEmail('');
-    setPassword('');
-    setError('');
   };
+
 
   return (
     <>
@@ -54,16 +62,13 @@ const LoginPage = () => {
                     <div className={styles.input_with_icon}>
                     <div className={styles.lg_inpt_icn_ct}> <MdOutlineMailOutline className={styles.input_icon} />   {/* Icon before input */}</div>
 
-                    
                     <input
-                      type="email"
-                      id="email"
-                      value={email}
-                      placeholder='username'
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-
-                    />
+          type="text"
+          placeholder="Username"
+          value={email}
+          onChange={e => setUser(e.target.value)}
+          required
+        />
                     </div>
                   </div>
 
@@ -71,18 +76,16 @@ const LoginPage = () => {
                     <label htmlFor="password">Password</label>
                     <div className={styles.input_with_icon}>
                       <div className={styles.lg_inpt_icn_ct}>   <FaRegEyeSlash  className={styles.input_icon} /> {/* Icon before input */}</div>
-                   
-                      <input
-                        type="password"
-                        id="password"
-                        value={password}
-                        placeholder='password'
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                      />
+                   <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+          required
+        />
                     </div>
                   </div>
-                  <div className="d-flex align-items-center">
+                  {/* <div className="d-flex align-items-center">
                     <div className={styles.rm_bx}>
 
                     </div>
@@ -91,10 +94,10 @@ const LoginPage = () => {
                     </div>
                     
 
-                  </div>
+                  </div> */}
 
                   <button className={styles.lgin_sbt} type="submit">Login</button>
-
+{error && <div style={{ color: "red" }}>{error}</div>}
                   {/* <div className="text-center">
                     <p className={styles.rem_txt}>Forgot Password</p>
 
@@ -112,4 +115,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default Login;

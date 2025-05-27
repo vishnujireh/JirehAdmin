@@ -15,6 +15,10 @@ const nextConfig: NextConfig = {
 {
   source: '/api/getQuote',
   destination: 'http://demo1.jirehsol.com/api/getQuote',
+},
+{
+  source: '/api/admin/login',
+  destination: 'http://demo1.jirehsol.com/api/admin/login',
 }
     ];
   },
