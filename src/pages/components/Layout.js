@@ -1,6 +1,6 @@
 import React from "react";
 import useSidebarStore from "../../store/sidebarStore";
-import Header from "./Header"; 
+import Header from "./header";
 import Footer from './footer'
 
 const Layout = ({ children }) => {
