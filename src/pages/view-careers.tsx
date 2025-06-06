@@ -89,7 +89,7 @@ const View_careers = () => {
                                                 </td>
                                                 <td>:</td>
                                                 <td>
-                                                    <span className="font-weight-semibold">here we go that i'm well known developer can do any type of front-end related development</span>
+                                                    <span className="font-weight-semibold">here we go that i&apos;m well known developer can do any type of front-end related development</span>
                                                 </td>
                                             </tr>
                                         </tbody>

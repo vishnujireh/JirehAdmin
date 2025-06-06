@@ -1,7 +1,6 @@
  import React, { useState } from "react";
 import { useRouter } from "next/router";
 import Head from 'next/head';
-import { FormEvent } from 'react';
 import Image from 'next/image';
 import loginjirehlogo from "../../public/assets/login-page-jirehlogo.png"
 import { FaRegEyeSlash } from "react-icons/fa6";

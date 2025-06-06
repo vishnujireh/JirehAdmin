@@ -15,11 +15,11 @@ function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     if (typeof window !== "undefined") {
       // Dynamically import Bootstrap JS and DataTables Bootstrap 5 JS
-       // @ts-ignore
+      // //  @ts-ignor
       import("bootstrap/dist/js/bootstrap.bundle.min.js").catch((err) =>
         console.error("Bootstrap JS load error:", err)
       );
-      // @ts-ignore
+      // // @ts-ignore
       import("datatables.net-bs5").catch((err) =>
         console.error("DataTables JS load error:", err)
       );
