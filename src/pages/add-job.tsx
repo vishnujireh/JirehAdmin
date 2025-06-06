@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/router';
-import DescriptionBar from './components/Description';
 import HtmlEditor from './components/Description';
 const Add_job = () => {
     const [jobTitle, setJobTitle] = useState('');
@@ -8,7 +7,7 @@ const Add_job = () => {
     const [experience, setExperience] = useState('');
     const [salary, setSalary] = useState('');
     const [skills, setSkills] = useState('');
-    const [description, setDescription] = useState('');
+    const [description] = useState('');
     const router = useRouter();
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();

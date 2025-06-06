@@ -27,7 +27,7 @@ export default function Header() {
         setSidebarState(storedSidebar === "open");
       }
     }
-  }, []);
+  }, [setSidebarState]);
 
   const toggleFullscreen = () => {
     if (!document.fullscreenElement) {
