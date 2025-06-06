@@ -104,7 +104,7 @@ export default function Header() {
 
         <div className="toggle-btn-wrapper">
           <button className="toggle-btn" onClick={toggleSidebar}>
-            <img
+            <Image
               src={isOpen ? "/assets/opentoggle.svg" : "/assets/closetoggle.svg"}
               alt={isOpen ? "Close Sidebar" : "Open Sidebar"}
               className="toggle-img"

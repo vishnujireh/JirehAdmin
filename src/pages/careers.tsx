@@ -1,6 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { FiEye } from 'react-icons/fi';
-import Link from 'next/link';
 import $ from 'jquery';
 import 'datatables.net-bs5';
 
