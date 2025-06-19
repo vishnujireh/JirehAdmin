@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import $ from 'jquery';
 import 'datatables.net-bs5';
+import Link from 'next/link';
+import { FiEye } from 'react-icons/fi';
 
 type Quote = {
-  id?: string | number;
+  _id?: string | number;
   name?: string;
   email?: string;
   mobile?: string;
@@ -76,23 +78,27 @@ const GetQuote = () => {
                 <th>Mobile</th>
                 <th>Service Looking</th>
                 <th>Budget</th>
-                {/* <th>Action</th> */}
+               <th className='text-center'>Action</th>
               </tr>
             </thead>
             <tbody>
               {quotedata.map((quote, index) => (
-                <tr key={quote.id || index}>
+                <tr key={quote._id || index}>
                   <td className='text-center'>{index + 1}</td>
                   <td>{quote.name}</td>
                   <td>{quote.email}</td>
                   <td>{quote.mobile}</td>
                   <td>{quote.service}</td>
                   <td>{quote.budget}</td>
-                  {/* <td>
-                    <Link href={`/view-quote?id=${quote.id}`} className="btn btn-sm btn-primary" title="View">
-                        <FiEye size={18} color="#fff" />
-                    </Link>
-                  </td> */}
+                   <td className='text-center'>
+                    <Link
+  href={`/view-quote?id=${quote._id}`}
+  className="btn btn-sm btn-primary"
+  title="View"
+>
+  <FiEye size={18} color="#fff" />
+</Link>
+                  </td> 
                 </tr>
               ))}
             </tbody>

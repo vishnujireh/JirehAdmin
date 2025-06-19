@@ -107,7 +107,7 @@ export default function Header() {
             <Image
               src={isOpen ? "/assets/opentoggle.svg" : "/assets/closetoggle.svg"}
               alt={isOpen ? "Close Sidebar" : "Open Sidebar"}
-              className="toggle-img"
+              className="toggle-img" width={24} height={24}
             />
           </button>
         </div>

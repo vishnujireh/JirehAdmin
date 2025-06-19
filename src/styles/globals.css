@@ -708,10 +708,8 @@ body.sidebar-open {
 .page-header {
   color: #263871;
   margin: 0;
-  font-size: 20px;
-  font-weight: 500;
-  line-height: 2rem;
-  margin-bottom: 1rem;
+  font-weight: 500; 
+  margin-bottom: 0;
 
 }
 
@@ -933,11 +931,35 @@ margin-bottom: 0.5rem ;
 .submit-btn-job:hover {
   transform: scale(1.05);
 }
-
-
-
-
-
-
-
-
+.odlist {
+    color: #1c1c1c;
+    display: flex;
+    font-family: Roboto, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 23px;
+    margin-bottom: 10px;
+        font-family: 'Rubik', sans-serif;
+}
+.odlist span {
+  display: block;
+    max-width: 20%;
+    width: 20%;
+}
+.odlist span+span {
+color: #636365;
+    max-width: none;
+    opacity: .8;
+    padding-left: 15px;
+    position: relative;
+    width: 80%;
+    display: block;
+}
+.odlist span+span:before {
+    content: ":";
+    left: 0;
+    position: absolute;
+}
+.text-trans{
+  text-transform: capitalize;
+}

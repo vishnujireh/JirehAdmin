@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import $ from 'jquery';
 import 'datatables.net-bs5';
+import Link from 'next/link';
+import { FiEye } from 'react-icons/fi';
 
 // Match the API response structure for job applications
 type CareerApplication = {
@@ -75,11 +77,11 @@ const GetCareer = () => {
                 <th className='text-center'>S.no</th>
                 <th>Name</th>
                 <th>Email</th>
-                <th>Mobile</th>
+                <th className='text-center'>Mobile</th>
                 <th>Location</th>
                 <th>Job Title</th>
-                <th>Applied On</th>
-                {/* <th>Action</th> */}
+                <th className='text-center'>Applied On</th>
+                <th className='text-center'>Resume</th>
               </tr>
             </thead>
             <tbody>
@@ -88,15 +90,16 @@ const GetCareer = () => {
                   <td className='text-center'>{index + 1}</td>
                   <td>{app.name}</td>
                   <td>{app.email}</td>
-                  <td>{app.mobile}</td>
+                  <td className='text-center'>{app.mobile}</td>
                   <td>{app.location}</td>
                   <td>{app.job_title}</td>
-                  <td>{app.createdAt ? new Date(app.createdAt).toLocaleDateString() : ''}</td>
-                  {/* <td>
-                    <Link href={`/view-career?id=${app._id}`} className="btn btn-sm btn-primary" title="View">
+                  <td className='text-center'>{app.createdAt ? new Date(app.createdAt).toLocaleDateString() : ''}</td>
+                   <td className='text-center'>
+                    <Link href={`http://demo1.jirehsol.com${app.resume}`} className="btn btn-sm btn-primary" title="View Resume" target="_blank" rel="noopener noreferrer">
                       <FiEye size={18} color="#fff" />
                     </Link>
-                  </td> */}
+                     
+                  </td> 
                 </tr>
               ))}
             </tbody>
