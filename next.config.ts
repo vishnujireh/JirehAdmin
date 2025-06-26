@@ -3,8 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   basePath: "/admin", // ✅ Add this line
-  trailingSlash: true, // ✅ Optional: helps with static builds
-
+  trailingSlash: true,
   async rewrites() {
     return [
       {
@@ -12,17 +11,17 @@ const nextConfig: NextConfig = {
         destination: 'http://demo1.jirehsol.com/api/getAllQuote',
       },
       {
-        source: '/api/applications',
-        destination: 'http://demo1.jirehsol.com/api/applications',
-      },
-      {
-        source: '/api/getQuote',
-        destination: 'http://demo1.jirehsol.com/api/getQuote',
-      },
-      {
-        source: '/api/admin/login',
-        destination: 'http://demo1.jirehsol.com/api/admin/login',
-      },
+  source: '/api/applications',
+  destination: 'http://demo1.jirehsol.com/api/applications',
+},
+{
+  source: '/api/getQuote',
+  destination: 'http://demo1.jirehsol.com/api/getQuote',
+},
+{
+  source: '/api/admin/login',
+  destination: 'http://demo1.jirehsol.com/api/admin/login',
+}
     ];
   },
 };

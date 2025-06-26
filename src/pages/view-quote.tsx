@@ -10,8 +10,9 @@ type Quote = {
   serviceComment?: string;
   budget?: string;
   budgetComment?: string;
-  createdAt?: string;
-  updatedAt?: string;
+  pageurl?: string;
+  userip?: string;
+  fileattachment?: string;
 };
 
 const ViewQuote = () => {
@@ -22,6 +23,7 @@ const ViewQuote = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    
     if (!router.isReady || !id || typeof id !== 'string') return;
 
     const fetchQuote = async () => {
@@ -70,9 +72,17 @@ const ViewQuote = () => {
                   {quote.budgetComment && (
                   <p className='odlist'><span>Budget Description</span> <span className='text-gray'>{quote.budgetComment}</span></p>
                   )}
+                  {quote.pageurl && (
+                    <p className='odlist'><span>Page URL</span> <span className='text-gray'>{quote.pageurl}</span></p>
+                  )}
+                  {quote.userip && (
+                    <p className='odlist'><span>User IP</span> <span className='text-gray'>{quote.userip}</span></p>
+                  )}
+                  {quote.fileattachment && (
+                    <p className='odlist'><span>File Attachment</span> <span className='text-gray'>{quote.fileattachment}</span></p>
+                  )}
                 </>
               )}
-          <p></p>
         </div>
         
       </div>
