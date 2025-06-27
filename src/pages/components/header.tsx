@@ -13,6 +13,7 @@ import profile_pic from "../../../public/assets/vishnu.jpg";
 import homelogo from "../../../public/assets/home.svg";
 import getquote from "../../../public/assets/get-quote.svg";
 import vishnuimage from "../../../public/assets/vishnu.jpg";
+import { RiMenu2Line, RiCloseLine } from "react-icons/ri";
 
 export default function Header() {
   const { isOpen, toggleSidebar, setSidebarState } = useSidebarStore();
@@ -104,11 +105,12 @@ export default function Header() {
 
         <div className="toggle-btn-wrapper">
           <button className="toggle-btn" onClick={toggleSidebar}>
-            <Image
-              src={isOpen ? "/assets/opentoggle.svg" : "/assets/closetoggle.svg"}
+            {isOpen ? <RiMenu2Line ></RiMenu2Line> : <RiCloseLine ></RiCloseLine>}
+            {/* <Image
+              src={isOpen ? "/public/assets/opentoggle.svg" : "/public/assets/closetoggle.svg"}
               alt={isOpen ? "Close Sidebar" : "Open Sidebar"}
               className="toggle-img" width={24} height={24}
-            />
+            /> */}
           </button>
         </div>
         <div className="company-logo-md">
