@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import $ from 'jquery';
 import 'datatables.net-bs5';
 import Link from 'next/link';
-import { FiEye } from 'react-icons/fi';
+import {RiEyeLine } from 'react-icons/ri';
 
 // Match the API response structure for job applications
 type CareerApplication = {
@@ -59,7 +59,8 @@ const GetCareer = () => {
   return (
     <div className="page-main-container p-3">
       <h5 className="page-header mb-4">Career Applications</h5>
-    <div className='card_pbg'>
+    <div className='card'>
+      <div className='card-body'>
     {loading ? (
         <div className="text-center">Loading...</div>
       ) : applications.length === 0 ? (
@@ -69,15 +70,15 @@ const GetCareer = () => {
           <table
             id="assigntask"
             ref={tableRef}
-            className="table table-striped table-bordered table-hover"
+            className="table table-striped table-bordered table-hover align-middle"
             style={{ width: '100%' }}
           >
             <thead>
               <tr>
-                <th className='text-center'>S.no</th>
+                <th className='text-center'>Sl.No</th>
                 <th>Name</th>
-                <th>Email</th>
-                <th className='text-center'>Mobile</th>
+                <th style={{ width: '20%' }}>Email</th>
+                <th>Mobile</th>
                 <th>Location</th>
                 <th>Job Title</th>
                 <th className='text-center'>Applied On</th>
@@ -88,15 +89,15 @@ const GetCareer = () => {
               {applications.map((app, index) => (
                 <tr key={app._id}>
                   <td className='text-center'>{index + 1}</td>
-                  <td>{app.name}</td>
-                  <td>{app.email}</td>
-                  <td className='text-center'>{app.mobile}</td>
+                  <td className='text-capitalize'>{app.name}</td>
+                  <td style={{ width: '20%' }}>{app.email}</td>
+                  <td>{app.mobile}</td>
                   <td>{app.location}</td>
                   <td>{app.job_title}</td>
                   <td className='text-center'>{app.createdAt ? new Date(app.createdAt).toLocaleDateString() : ''}</td>
                    <td className='text-center'>
-                    <Link href={`http://demo1.jirehsol.com${app.resume}`} className="btn btn-sm btn-primary" title="View Resume" target="_blank" rel="noopener noreferrer">
-                      <FiEye size={18} color="#fff" />
+                    <Link href={`http://demo1.jirehsol.com${app.resume}`} className="view_icon" title="View Resume" target="_blank" rel="noopener noreferrer">
+                      <RiEyeLine />
                     </Link>
                      
                   </td> 
@@ -106,6 +107,7 @@ const GetCareer = () => {
           </table>
         </div>
       )}
+      </div>
     </div>
       
     </div>

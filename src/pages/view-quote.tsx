@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-
+import { RiArrowLeftSLine } from 'react-icons/ri';
 type Quote = {
   _id: string;
   name?: string;
@@ -13,6 +13,7 @@ type Quote = {
   pageurl?: string;
   userip?: string;
   fileattachment?: string;
+  createdAt?: string;
 };
 
 const ViewQuote = () => {
@@ -47,20 +48,21 @@ const ViewQuote = () => {
   };
 
   return (
-    <div className="page-main-container">
-      <div className="d-flex justify-content-between mb-3">
-        <h6 className="page-header mb-0">View Details</h6>
-        <button className="btn back-btn" onClick={goBack}>Back</button>
+    <div className="page-main-container  p-3">
+      <div className="d-flex justify-content-between align-items-center mb-4">
+      <h5 className="page-header">View Lead</h5>
+        <button className="btn back-btn" onClick={goBack}><RiArrowLeftSLine  /> Back</button>
       </div>
 
-      <div className="card pt-4 ps-3 pr-3">
-        <div>
+      <div className="card">
+        <div className='card-body'>
           {loading ? (
                 <p className="odlist text-center">Loading...</p>
               ) : !quote ? (
                 <p className="odlist text-center">No data found</p>
               ) : (
                 <>
+                  <p className='odlist'><span>Date</span> <span className='text-gray text-trans'>{quote.createdAt ? new Date(quote.createdAt).toLocaleDateString() : ''}</span></p>
                   <p className='odlist'><span>Name</span> <span className='text-gray text-trans'>{quote.name}</span></p>
                   <p className='odlist'><span>Email</span> <span className='text-gray'>{quote.email}</span></p>
                   <p className='odlist'><span>Mobile</span> <span className='text-gray'>{quote.mobile}</span></p>

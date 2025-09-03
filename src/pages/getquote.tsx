@@ -2,8 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import $ from 'jquery';
 import 'datatables.net-bs5';
 import Link from 'next/link';
-import { FiEye } from 'react-icons/fi';
-
+import { RiAddLine, RiEyeLine } from 'react-icons/ri';
 type Quote = {
   _id?: string | number;
   name?: string;
@@ -11,6 +10,7 @@ type Quote = {
   mobile?: string;
   service?: string;
   budget?: string;
+  createdAt?: string;
 };
 
 const GetQuote = () => {
@@ -56,8 +56,13 @@ const GetQuote = () => {
 
   return (
     <div className="page-main-container p-3">
-      <h5 className="page-header mb-4">Get a Quote</h5>
-    <div className='card_pbg'>
+      <div className="d-flex justify-content-between align-items-center mb-4">
+            <h5 className="page-header">Leads</h5>
+              <Link href="/add-lead" className="btn btn-primary"><RiAddLine /> Add Lead</Link>
+            </div>
+      
+    <div className='card'>
+      <div className="card-body">
         {loading ? (
         <div className="text-center">Loading...</div>
       ) : quotedata.length === 0 ? (
@@ -67,17 +72,18 @@ const GetQuote = () => {
           <table
             id="assigntask"
             ref={tableRef}
-            className="table table-striped table-bordered table-hover"
+            className="table table-striped table-bordered table-hover align-middle"
             style={{ width: '100%' }}
           >
             <thead>
               <tr>
-                <th className='text-center'>S.no</th>
-                <th>Name</th>
-                <th>Email</th>
+                <th className='text-center'>Sl.No</th>
+                <th className='text-capitalize'>Name</th>
+                <th style={{ width: '20%' }}>Email</th>
                 <th>Mobile</th>
                 <th>Service Looking</th>
-                <th>Budget</th>
+                <th style={{ width: '13%' }} className='text-center'>Budget</th>
+                <th className='text-center'>Date</th>
                <th className='text-center'>Action</th>
               </tr>
             </thead>
@@ -85,18 +91,19 @@ const GetQuote = () => {
               {quotedata.map((quote, index) => (
                 <tr key={quote._id || index}>
                   <td className='text-center'>{index + 1}</td>
-                  <td>{quote.name}</td>
-                  <td>{quote.email}</td>
+                  <td className='text-capitalize'>{quote.name}</td>
+                  <td style={{ width: '20%' }}>{quote.email}</td>
                   <td>{quote.mobile}</td>
                   <td>{quote.service}</td>
-                  <td>{quote.budget}</td>
+                  <td style={{ width: '13%' }} className='text-center'>{quote.budget}</td>
+                    <td className='text-center'>{quote.createdAt ? new Date(quote.createdAt).toLocaleDateString() : ''}</td>
                    <td className='text-center'>
                     <Link
   href={`/view-quote?id=${quote._id}`}
-  className="btn btn-sm btn-primary"
+  className="view_icon"
   title="View"
 >
-  <FiEye size={18} color="#fff" />
+  <RiEyeLine />
 </Link>
                   </td> 
                 </tr>
@@ -105,6 +112,7 @@ const GetQuote = () => {
           </table>
         </div>
       )}
+      </div>
     </div>
       
     </div>

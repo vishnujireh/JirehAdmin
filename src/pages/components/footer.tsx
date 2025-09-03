@@ -1,5 +1,5 @@
 import React from 'react'
-import BackToTop from './BackToTop'
+// import BackToTop from './BackToTop'
 
 const Footer = () => {
   return (
@@ -13,7 +13,7 @@ const Footer = () => {
             </div> */}
           </div>
         </div>
-        <BackToTop/>
+        {/* <BackToTop/> */}
       </footer>
     </>
   )

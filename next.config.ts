@@ -1,8 +1,9 @@
 import type { NextConfig } from "next";
+const isProd = process.env.NODE_ENV === "production";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  basePath: "/admin", // ✅ Add this line
+  basePath: isProd ? "/admin" : "", // ✅ Add this line
   trailingSlash: true,
   async rewrites() {
     return [
