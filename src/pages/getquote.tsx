@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import $ from 'jquery';
 import 'datatables.net-bs5';
 import Link from 'next/link';
-import { RiAddLine, RiEyeLine } from 'react-icons/ri';
+import { RiAddLine, RiEyeLine, RiPencilLine, RiDeleteBin6Line } from 'react-icons/ri';
 type Quote = {
   _id?: string | number;
   name?: string;
@@ -17,6 +17,8 @@ const GetQuote = () => {
   const [quotedata, setQuotedata] = useState<Quote[]>([]);
   const [loading, setLoading] = useState(true);
   const tableRef = useRef<HTMLTableElement>(null);
+ // const dataTable = useRef<unknown>(null);
+ const dataTable = useRef<DataTables.Api | null>(null);
 
   
   useEffect(() => {
@@ -39,20 +41,48 @@ const GetQuote = () => {
   // Initialize DataTable after data is loaded
   useEffect(() => {
     if (!loading && quotedata.length && tableRef.current) {
-      const table = $(tableRef.current).DataTable({
+      if (dataTable.current) {
+        dataTable.current.destroy();
+      }
+      dataTable.current = $(tableRef.current).DataTable({
         destroy: true,
-        // Optional: customize DataTable options here
+        // Optional: customize DataTable options here   
         paging: true,
         searching: true,
         info: true,
       });
-
-      // Cleanup DataTable instance on component unmount or data change
-      return () => {
-        table.destroy();
-      };
+       
     }
-  }, [loading, quotedata]);
+  }, [loading, quotedata.length]);
+
+    const deleteQuote = async (id: string) => {
+  if (!confirm("Are you sure you want to delete this quote?")) return;
+
+  try {
+    const res = await fetch(`/api/admin/deleteQuote?id=${id}`, {
+      method: "DELETE",
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id }),
+    });
+
+    const data = await res.json();
+    if (data.success) {
+      alert("Quote deleted successfully");
+      if (dataTable.current) {
+        dataTable.current.destroy();
+        dataTable.current = null;
+      }
+      // ✅ Update state so row disappears without refresh
+      setQuotedata((prev) => prev.filter((q) => q._id !== id));
+    } else {
+      alert(data.error || "Failed to delete quote");
+    }
+  } catch (err) {
+    console.error("Error deleting quote:", err);
+    alert("Something went wrong!");
+  }
+};
+
 
   return (
     <div className="page-main-container p-3">
@@ -84,7 +114,7 @@ const GetQuote = () => {
                 <th>Service Looking</th>
                 <th style={{ width: '13%' }} className='text-center'>Budget</th>
                 <th className='text-center'>Date</th>
-               <th className='text-center'>Action</th>
+               <th className='text-center'  style={{ width: '13%' }}>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -97,15 +127,21 @@ const GetQuote = () => {
                   <td>{quote.service}</td>
                   <td style={{ width: '13%' }} className='text-center'>{quote.budget}</td>
                     <td className='text-center'>{quote.createdAt ? new Date(quote.createdAt).toLocaleDateString() : ''}</td>
-                   <td className='text-center'>
+                   <td className='text-center' style={{ width: '13%' }}>
+<Link href={`/add-lead?id=${quote._id}`} className="edit_icon" title="Edit">
+  <RiPencilLine />
+</Link>
                     <Link
   href={`/view-quote?id=${quote._id}`}
   className="view_icon"
-  title="View"
+  title="View"  style={{ marginLeft: '8px' }}
 >
   <RiEyeLine />
 </Link>
-                  </td> 
+<a onClick={() => deleteQuote(quote._id as string)} className="delete_icon" title="Delete" style={{ cursor: 'pointer', marginLeft: '8px' }}>
+  <RiDeleteBin6Line />
+</a>
+                  </td>
                 </tr>
               ))}
             </tbody>

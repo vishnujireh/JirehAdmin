@@ -12,6 +12,7 @@
     "@tinymce/tinymce-react": "^6.0.0",
     "@tiptap/react": "^2.11.5",
     "@tiptap/starter-kit": "^2.11.5",
+    "axios": "^1.11.0",
     "bootstrap": "^5.3.3",
     "datatables.net-bs5": "^2.3.1",
     "datatables.net-dt": "^2.3.1",
@@ -30,6 +31,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@types/datatables.net": "^1.10.28",
     "@types/jquery": "^3.5.32",
     "@types/node": "^20",
     "@types/react": "^19",

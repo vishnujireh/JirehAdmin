@@ -4,36 +4,38 @@ import 'datatables.net-bs5';
 import Link from 'next/link';
 import { RiAddLine, RiPencilLine, RiDeleteBin6Line, RiEyeLine} from 'react-icons/ri';
 
-type UserList = {
+
+type BlogList = {
   _id: string | number;
-  firstName: string;
-  lastName: string;
-  email: string;
-  mobile: string;
-  userType: string;
-  country: string;
-  userStatus: 'Active' | 'Inactive';
-  workingShift: string;
-  createdAt: string;
+  title: string;
+  slug: string;
+  author: string;
+  content: string;
+  category: string;
+  tags: string;
+  coverImage: string;
+  blogStatus: 'Active' | 'Inactive';
+  publishDate: string;
 };
  
-const UserManagement = () => {
-  const [userdata, setUserdata] = useState<UserList[]>([]);
+const Blog = () => {
+  const [blogData, setBlogData] = useState<BlogList[]>([]);
   const [loading, setLoading] = useState(true);
   const tableRef = useRef<HTMLTableElement>(null);
   //const dataTable = useRef<any>(null);
   const dataTable = useRef<DataTables.Api | null>(null);
 
+
 useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch('/api/admin/userList');
+        const response = await fetch('/api/admin/blogList');
         const data = await response.json();
         // Adjust this depending on your API response structure:
-        setUserdata(Array.isArray(data.data) ? data.data : []);
+        setBlogData(Array.isArray(data.blogs) ? data.blogs : []);
       } catch (error) {
-        console.error('Error fetching users:', error);
-        setUserdata([]);
+        console.error('Error fetching blogs:', error);
+        setBlogData([]);
       } finally {
         setLoading(false);
       }
@@ -42,7 +44,7 @@ useEffect(() => {
   }, []);
 
 useEffect(() => {
-    if (!loading && userdata.length && tableRef.current) {
+    if (!loading && blogData.length && tableRef.current) {
      if (dataTable.current) {
 
         dataTable.current.destroy();
@@ -58,13 +60,13 @@ useEffect(() => {
       });
  
     }
-  }, [loading, userdata.length]);
+  }, [loading, blogData.length]);
 
   const deleteUser = async (id: string) => {
   if (!confirm("Are you sure you want to delete this user?")) return;
 
   try {
-    const res = await fetch(`/api/admin/deleteUser?id=${id}`, {
+    const res = await fetch(`/api/admin/deleteBlog?id=${id}`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id }),
@@ -75,16 +77,14 @@ useEffect(() => {
     if (data.success) {
       alert('User deleted successfully');
 
-      // ✅ Destroy DataTable first
       if (dataTable.current) {
         dataTable.current.destroy();
         dataTable.current = null;
       }
 
-      // ✅ Then update React state
-      setUserdata((prev) => prev.filter((u) => u._id !== id));
+      // 1️⃣ Remove from state
+      setBlogData((prev) => prev.filter((u) => u._id !== id));
 
-      // ✅ The useEffect watching userdata.length will re-initialize DataTable
     } else {
       alert(data.error || 'Failed to delete user');
     }
@@ -97,22 +97,20 @@ useEffect(() => {
 
 
 
-
-
   return (
     <div className="page-main-container p-3">
       <div className="d-flex justify-content-between align-items-center mb-4">
-        <h5 className="page-header">User Management</h5>
-        <Link href="/add-user">
+        <h5 className="page-header">Blogs</h5>
+        <Link href="/add-blog">
           <button className="btn btn-primary">
-            <RiAddLine /> Add User
+            <RiAddLine /> Add Blog
           </button>
         </Link>
       </div>
 
       <div className="card">
         <div className="card-body">
-          {userdata.length === 0 ? (
+          {blogData.length === 0 ? (
             <div className="text-center">No data found</div>
           ) : (
             <div className="table-responsive">
@@ -125,51 +123,47 @@ useEffect(() => {
                 <thead>
                   <tr>
                     <th className="text-center">Sl.No</th>
-                    <th>Name</th>
-                    <th style={{ width: '20%' }}>Email</th>
-                    <th className='text-center'>Mobile</th>
-                    <th className='text-center'>User Type</th>
-                    <th className='text-center'>Country</th>
-                    <th className='text-center'>Date</th>
+                    <th>Title</th>
+                    <th style={{ width: '20%' }}>Slug</th>
+                    <th className='text-center'>Author</th>
+                    <th className='text-center'>Category</th>
+                    <th className='text-center'>PublishedAt</th>
                     <th className='text-center'>Status</th>
-                    <th className='text-center'>Shift</th>
                      
                     <th className="text-center" style={{ width: '13%' }}>Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {userdata.map((UserList, index) => (
-                    <tr key={UserList._id} id={`row-${UserList._id}`}>
+                  {blogData.map((BlogList, index) => (
+                    <tr key={BlogList._id} id={`row-${BlogList._id}`}>
                       <td className="text-center">{index + 1}</td>
-                      <td>{UserList.firstName} {UserList.lastName}</td>
-                      <td style={{ width: '20%' }}>{UserList.email}</td>
-                      <td className='text-center'>{UserList.mobile}</td>
-                      <td className='text-center'>{UserList.userType}</td>
-                      <td className='text-center'>{UserList.country}</td>
-                      <td  className='text-center'>{new Date(UserList.createdAt).toLocaleDateString()}</td>
+                      <td>{BlogList.title}</td>
+                      <td style={{ width: '20%' }}>{BlogList.slug}</td>
+                      <td className='text-center'>{BlogList.author}</td>
+                      <td className='text-center'>{BlogList.category}</td>
+                      <td  className='text-center'>{new Date(BlogList.publishDate).toLocaleDateString()}</td>
                       <td  className='text-center'>
                         <span
                           className={`badge ${
-                            UserList.userStatus === 'Active' ? 'bg-success' : 'bg-danger'
+                            BlogList.blogStatus === 'Active' ? 'bg-success' : 'bg-danger'
                           }`}
                         >
-                          {UserList.userStatus}
+                          {BlogList.blogStatus}
                         </span>
                       </td>
-                      <td className='text-center'>{UserList.workingShift}</td>
                       <td className="text-center" style={{ width: '13%' }}>
                         <Link
-                          href={`/add-user?id=${UserList._id}`}
+                          href={`/add-blog?id=${BlogList._id}`}
                           className="edit_icon"
                           title="Edit"
                         >
                           <RiPencilLine />
                         </Link>
-                        <Link href={`/view-user?id=${UserList._id}`} className="view_icon"
+                         <Link href={`/view-blog?id=${BlogList._id}`} className="view_icon"
   title="View" style={{ marginLeft: '8px' }}>
                           <RiEyeLine />
-                        </Link>
-                        <a onClick={() => deleteUser(UserList._id as string)} className="delete_icon"
+                        </Link> 
+                        <a onClick={() => deleteUser(BlogList._id as string)} className="delete_icon"
   title="Delete" style={{ marginLeft: '8px' }}>
                           <RiDeleteBin6Line  />
                         </a>
@@ -186,4 +180,4 @@ useEffect(() => {
   );
 };
 
-export default UserManagement;
+export default Blog;

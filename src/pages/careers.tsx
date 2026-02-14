@@ -2,20 +2,20 @@ import React, { useState, useEffect, useRef } from 'react';
 import $ from 'jquery';
 import 'datatables.net-bs5';
 import Link from 'next/link';
-import {RiEyeLine } from 'react-icons/ri';
+import {RiEyeLine, RiBriefcaseLine  } from 'react-icons/ri';
 
 // Match the API response structure for job applications
 type CareerApplication = {
   _id: string;
-  name: string;
+  name: string;   
   email: string;
   mobile: string;
   location: string;
   job_id?: string;
   job_title?: string;
   resume?: string;
-  comments?: string;
-  createdAt?: string;
+  comments?: string; 
+  createdAt?: string;  
 };
 
 const GetCareer = () => {
@@ -56,9 +56,14 @@ const GetCareer = () => {
     }
   }, [loading, applications]);
 
+ 
+
   return (
     <div className="page-main-container p-3">
-      <h5 className="page-header mb-4">Career Applications</h5>
+      <div className="d-flex justify-content-between align-items-center mb-4">
+            <h5 className="page-header">Career Applications</h5>
+              <Link href="/joblist" className="btn btn-primary"><RiBriefcaseLine/> Job List</Link>
+            </div>
     <div className='card'>
       <div className='card-body'>
     {loading ? (
@@ -82,7 +87,7 @@ const GetCareer = () => {
                 <th>Location</th>
                 <th>Job Title</th>
                 <th className='text-center'>Applied On</th>
-                <th className='text-center'>Resume</th>
+                <th className='text-center'>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -96,7 +101,7 @@ const GetCareer = () => {
                   <td>{app.job_title}</td>
                   <td className='text-center'>{app.createdAt ? new Date(app.createdAt).toLocaleDateString() : ''}</td>
                    <td className='text-center'>
-                    <Link href={`http://demo1.jirehsol.com${app.resume}`} className="view_icon" title="View Resume" target="_blank" rel="noopener noreferrer">
+                    <Link href={`/view-careers?id=${app._id}`} className="view_icon" title="View Resume" >
                       <RiEyeLine />
                     </Link>
                      
@@ -104,7 +109,7 @@ const GetCareer = () => {
                 </tr>
               ))}
             </tbody>
-          </table>
+          </table>   
         </div>
       )}
       </div>
@@ -114,4 +119,4 @@ const GetCareer = () => {
   );
 };
 
-export default GetCareer;
+export default GetCareer; 

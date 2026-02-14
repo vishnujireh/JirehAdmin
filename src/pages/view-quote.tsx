@@ -14,6 +14,9 @@ type Quote = {
   userip?: string;
   fileattachment?: string;
   createdAt?: string;
+  source?: string;
+  updatedBy?: string;
+  assignTo?: string | { firstName: string; lastName: string };
 };
 
 const ViewQuote = () => {
@@ -66,6 +69,11 @@ const ViewQuote = () => {
                   <p className='odlist'><span>Name</span> <span className='text-gray text-trans'>{quote.name}</span></p>
                   <p className='odlist'><span>Email</span> <span className='text-gray'>{quote.email}</span></p>
                   <p className='odlist'><span>Mobile</span> <span className='text-gray'>{quote.mobile}</span></p>
+                  {quote.updatedBy && <p className='odlist'><span>Updated By</span> <span className='text-gray'>{quote.updatedBy}</span></p>}
+                  {quote.assignTo && <p className='odlist'><span>Assign To</span> <span className='text-gray'>{typeof quote.assignTo === 'string' 
+        ? quote.assignTo 
+        : `${quote.assignTo?.firstName} ${quote.assignTo?.lastName}`}</span></p>}
+                  {quote.source && <p className='odlist'><span>Source</span> <span className='text-gray'>{quote.source}</span></p>}
                   <p className='odlist'><span>Service Looking</span> <span className='text-gray'>{quote.service}</span></p>
                   {quote.serviceComment && (
                   <p className='odlist'><span>Service Description</span> <span className='text-gray'>{quote.serviceComment}</span></p>

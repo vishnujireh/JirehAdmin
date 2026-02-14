@@ -8,10 +8,9 @@ const Layout = ({ children }) => {
 
   return (
     <div className="layout">
-      <Header /> 
+      <Header />
       <main className={`page-main-content top-border-main ${isOpen ? "content-expanded" : "content-collapsed"}`}>
-        {children} 
-      
+        {children}
       </main>
       <Footer/>
 

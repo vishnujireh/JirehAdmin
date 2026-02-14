@@ -11,6 +11,7 @@ body {
   color: #263871;
   overflow-x: hidden;
   background: #f1f4fb;
+  background-color:#f1f4fb !important
 }
 
 
@@ -490,7 +491,7 @@ body.sidebar-open {
 }
 
 .empdashtxt {
-  color: #263871;
+  color: #263871 !important;
 
 }
 
@@ -731,14 +732,14 @@ body.sidebar-open {
   flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
-  background-color: #fff;
+  background-color: #fff !important;
   background-clip: border-box;
   position: relative;
   margin-bottom: 1.5rem;
   width: 100%;
-  border: 0;
+  border: 0 !important;
   box-shadow: 0 0.15rem 1.75rem 0 rgba(196, 205, 224, 0.2);
-  border-radius: 13px;
+  border-radius: 13px !important;
 
 }
 
@@ -758,13 +759,15 @@ div.dataTables_wrapper div.dataTables_length select {
   display: inline-block;
 }
 
-.form-select {
+div.dataTables_wrapper div.dataTables_length .form-select {
   outline: none !important;
   box-shadow: none !important;
   border-color: inherit !important;
   width: 70px;
 }
-
+.form-select{
+  font-size: 14px;
+}
 .action-btns1 {
   width: 2rem;
   height: 2rem;
@@ -827,7 +830,7 @@ div.dataTables_wrapper div.dataTables_length select {
 } */
 
 .sub-ttl {
-  color: #263871;
+  color: #263871 !important;
   position: relative;
   padding-bottom: 5px;
   font-weight: 400;
@@ -853,11 +856,11 @@ div.dataTables_wrapper div.dataTables_length select {
 
 .font-weight-semibold {
   font-weight: 500 !important;
-  color: #263871;
+  color: #263871 !important;
 }
 
 .table>:not(caption)>*>* {
-  color:#263871;
+  color:#263871 !important;
 }
 
 .back-btn {
@@ -916,15 +919,15 @@ tr {
 
 .add-job-form-title {
   margin-top: 15px;
-  color: #263871;
+  color: #263871 !important;
 }
 
 option {
-  color: #263871;
+  color: #263871 !important;
 }
 
 .form-control {
-  color: #263871;
+  color: #263871 !important;
 }
 .tox-statusbar{
   display: none !important;
@@ -959,7 +962,7 @@ margin-bottom: 0.5rem ;
     width: 20%;
 }
 .odlist span+span {
-color: #263871;
+color: #263871 !important;
     max-width: none; 
     padding-left: 15px;
     position: relative;
@@ -970,6 +973,9 @@ color: #263871;
     content: ":";
     left: 0;
     position: absolute;
+}
+.odlistlscon span+span::before{
+  display: none;
 }
 .text-trans{
   text-transform: capitalize;
@@ -987,7 +993,31 @@ width: 40px;
     font-size: 20px;
 }
 .view_icon{
-width: 30px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: inline-block;
+    vertical-align: middle;
+    background: #e2e7f6;
+    line-height: 26px;
+    text-align: center;
+    color: #198754;
+    font-size: 18px;
+}
+.delete_icon{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: inline-block;
+    vertical-align: middle;
+    background: #fdeaea;
+    line-height: 26px;
+    text-align: center;
+    color: #ff4d4f;
+    font-size: 18px;
+}
+.edit_icon{
+    width: 30px;
     height: 30px;
     border-radius: 50%;
     display: inline-block;
@@ -1011,8 +1041,12 @@ border-color:none !important;
 }
 .form-control {
       border: var(--bs-border-width) solid var(--bs-border-color) !important;
-  color: #263871;
+  color: #263871 !important;
+  font-size: 14px !important;
 }
 .form-label{
   font-weight: 500;
+}
+.wflld .react-datepicker-wrapper{
+  width: 100%;
 }
